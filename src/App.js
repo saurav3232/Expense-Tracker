@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import NewExpense from "./componenets/NewExpenses/NewExpense";
+import Expenses from "./componenets/Expenses/Expenses";
+const App = () => {
+  let DUMMY_EXPENSE = [];
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSE);
+  function fetchData() {
+    console.log("Inside FetchFunc")
+    fetch("http://localhost:5000/list")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        // console.log(data);
+        setExpenses(data);
+      });
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-function App() {
+  const addExpenseHandler = (expense) => {
+    // console.log(expense)
+    // setExpenses([expense, ...expenses]);
+    fetch("http://localhost:5000/create", {
+      method: "POST",
+      body: JSON.stringify(expense),
+      headers: {
+        "content-Type": "application/json",
+      },
+    }).then((response) => {
+      fetchData();
+    });
+  };
+  const deleteExpenseHandler = (exp) => {
+    console.log(exp);
+    fetch("http://localhost:5000/delete/" + exp, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+   },
+    })
+      .then((res) => {
+        console.log(1);
+        fetchData();
+      })
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses item={expenses} deleteExpense={deleteExpenseHandler} />
     </div>
   );
-}
+};
 
 export default App;

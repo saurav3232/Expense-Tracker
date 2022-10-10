@@ -9,7 +9,7 @@ const Expenses = (props) => {
     }
     return (
         <Card className="expenses">
-            {console.log("Inside Array")}
+            {/* {console.log("Inside Array")} */}
             {props.item.map((expense,index) => (
                 <ExpenseItem
                     key={index}

@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import NewExpense from "./componenets/NewExpenses/NewExpense";
 import Expenses from "./componenets/Expenses/Expenses";
+import TotalExpense from "./componenets/TotalExpense/TotalExpense";
 const App = () => {
   let DUMMY_EXPENSE = [];
+  let total=0;
+  const [totalExpense,setTotalExpense]=useState(total);
   const [expenses, setExpenses] = useState(DUMMY_EXPENSE);
   function fetchData() {
-    console.log("Inside FetchFunc")
     fetch("http://localhost:5000/list")
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         // console.log(data);
+        data.forEach((ex) => {
+          total+=ex.amount;
+        })
+        setTotalExpense(total);
         setExpenses(data);
       });
   }
@@ -33,7 +39,7 @@ const App = () => {
     });
   };
   const deleteExpenseHandler = (exp) => {
-    console.log(exp);
+    // console.log(exp);
     fetch("http://localhost:5000/delete/" + exp, {
       method: "DELETE",
       headers: {
@@ -52,6 +58,7 @@ const App = () => {
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses item={expenses} deleteExpense={deleteExpenseHandler} />
+      <TotalExpense amount={totalExpense}/>
     </div>
   );
 };

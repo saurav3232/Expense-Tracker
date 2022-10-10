@@ -16,7 +16,7 @@ const ExpenseItem = (props) => {
     // }   
     const deleteExpenseHandler=()=>{
         
-        console.log(props.title);
+        // console.log(props.title);
         props.onDeleteExpenseHandler(props.title);
     }
     return (

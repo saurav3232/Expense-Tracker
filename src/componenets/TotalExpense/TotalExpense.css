@@ -1,0 +1,10 @@
+.totalspend{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 1rem 23vw;
+    background-color: #34495e;
+    color:aliceblue;
+    border-radius:15px;
+}

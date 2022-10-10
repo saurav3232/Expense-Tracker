@@ -41,8 +41,11 @@ const App = () => {
    },
     })
       .then((res) => {
-        console.log(1);
-        fetchData();
+        // console.log(exp);
+        res.json().then((resp)=>{
+          fetchData();
+        }
+        )
       })
   };
   return (

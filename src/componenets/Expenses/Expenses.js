@@ -12,7 +12,7 @@ const Expenses = (props) => {
             {console.log("Inside Array")}
             {props.item.map((expense,index) => (
                 <ExpenseItem
-                    // key={index}
+                    key={index}
                     date={expense.date}
                     title={expense.title}
                     amount={expense.amount}

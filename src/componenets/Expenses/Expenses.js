@@ -8,8 +8,9 @@ const Expenses = (props) => {
         props.deleteExpense(deleteExpTitle);
     }
     return (
-        <Card className="expenses">
-            {/* {console.log("Inside Array")} */}
+        <>
+            {props.item.length && 
+            <Card className="expenses">
             {props.item.map((expense,index) => (
                 <ExpenseItem
                     key={index}
@@ -21,7 +22,9 @@ const Expenses = (props) => {
                     }
                 />
             ))}
-        </Card>
+        </Card>}
+        </>
+        
     );
 };
 export default Expenses;
